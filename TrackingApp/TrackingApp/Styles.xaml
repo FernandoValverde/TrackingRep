@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    x:Class="TrackingApp.Styles"
+                    xmlns:control="clr-namespace:TrackingApp.Controls"
+                    xmlns:fab="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton">
+
+    <!-- Colors -->
+    <Color x:Key="pageTextColor">#000000</Color>
+    <Color x:Key="borderEntryColor">#777777</Color>
+
+    <!-- Styles -->
+    <!-- NavTabBar -->
+    <Style x:Key="tabbedStyle" TargetType="TabbedPage">
+        <Setter Property="BarBackgroundColor" Value="{DynamicResource secondaryBarColor}"  />
+        <Setter Property="BackgroundColor" Value="{DynamicResource backgroundColor}"  />
+        <Setter Property="BarTextColor" Value="White"/>
+    </Style>
+    <Style x:Key="navigationStyle" TargetType="NavigationPage">
+        <Setter Property="BarBackgroundColor" Value="{DynamicResource mainBarColor}"  />
+        <Setter Property="BackgroundColor" Value="{DynamicResource backgroundColor}"  />
+        <Setter Property="BarTextColor" Value="{DynamicResource barTextColor}"/>
+    </Style>
+
+    <!-- Entry Conttols -->
+    <Style x:Key="entryThemeStyle" TargetType="control:CustomEntry">
+        <Setter Property="BorderColor" Value="{DynamicResource barTextColor}"  />
+        <Setter Property="PlaceholderColor" Value="LightGray"  />
+        <Setter Property="TextColor" Value="{DynamicResource barTextColor}"  />
+        <Setter Property="FontSize" Value="17"  />
+        <Setter Property="HorizontalTextAlignment" Value="Start"  />
+        <Setter Property="CornerRadius" Value="3"  />
+        <Setter Property="IsCurvedCornersEnabled" Value="True"/>
+        <Setter Property="HeightRequest" Value="40"  />
+    </Style>
+
+    <Style x:Key="labelStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="20"  />
+        <Setter Property="TextColor" Value="{DynamicResource barTextColor}"  />
+    </Style>
+
+    <Style x:Key="entryFormStyle" TargetType="control:CustomEntry">
+        <Setter Property="BorderColor" Value="{DynamicResource borderEntryColor}"  />
+        <Setter Property="PlaceholderColor" Value="LightGray"  />
+        <Setter Property="TextColor" Value="{DynamicResource pageTextColor}"  />
+        <Setter Property="FontSize" Value="17"  />
+        <Setter Property="HorizontalTextAlignment" Value="Start"  />
+        <Setter Property="CornerRadius" Value="3"  />
+        <Setter Property="IsCurvedCornersEnabled" Value="True"/>
+        <Setter Property="HeightRequest" Value="40"  />
+        <Setter Property="BackgroundColor" Value="{DynamicResource backgroundColor}"  />
+    </Style>
+
+    <Style x:Key="pickerFormStyle" TargetType="control:CustomDatePicker">
+        <Setter Property="BorderColor" Value="{DynamicResource borderEntryColor}"  />
+        <Setter Property="TextColor" Value="{DynamicResource pageTextColor}"  />
+        <Setter Property="CornerRadius" Value="3"  />
+        <Setter Property="IsCurvedCornersEnabled" Value="True"/>
+        <Setter Property="HeightRequest" Value="40" />
+        <Setter Property="BackgroundColor" Value="{DynamicResource backgroundColor}"  />
+        <Setter Property="HorizontalOptions" Value="Center"  />
+        <Setter Property="VerticalOptions" Value="Center"  />
+    </Style>
+
+    <Style x:Key="selectFormStyle" TargetType="control:BindablePicker">
+        <Setter Property="BorderColor" Value="{DynamicResource borderEntryColor}"  />
+        <Setter Property="TextColor" Value="{DynamicResource pageTextColor}"  />
+        <Setter Property="CornerRadius" Value="3"  />
+        <Setter Property="IsCurvedCornersEnabled" Value="True"/>
+        <Setter Property="HeightRequest" Value="40" />
+        <Setter Property="AnchorY" Value="10" />
+        <Setter Property="BackgroundColor" Value="#e6e6e6"  />
+        <Setter Property="HorizontalOptions" Value="FillAndExpand"  />
+        <Setter Property="VerticalOptions" Value="Center"  />
+    </Style>
+
+    <Style x:Key="formLabelStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="20"  />
+        <Setter Property="Margin" Value="0,20,0,3"  />
+        <Setter Property="TextColor" Value="{DynamicResource pageTextColor}" />
+        <Setter Property="VerticalTextAlignment" Value="Center"/>
+        <Setter Property="HorizontalTextAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="buttonStyle" TargetType="Button">
+        <Setter Property="WidthRequest" Value="320"  />
+        <Setter Property="HeightRequest" Value="53"  />
+        <Setter Property="HorizontalOptions" Value="CenterAndExpand"  />
+        <Setter Property="FontSize" Value="17"  />
+        <Setter Property="TextColor" Value="{DynamicResource barTextColor}"  />
+        <Setter Property="BackgroundColor" Value="{DynamicResource mainBarColor}"  />
+        <Setter Property="BorderColor" Value="Black"  />
+    </Style>
+
+    <Style x:Key="contentStyle" TargetType="StackLayout">
+        <Setter Property="Padding" Value="20"  />
+    </Style>
+
+    <OnPlatform x:TypeArguments="x:Double" Android="1.1" iOS="1.5" WinPhone="1.1" x:Key="SizeFab" />
+
+    <Style x:Key="fabStyle" TargetType="fab:FloatingActionButton">
+        <Setter Property="HorizontalOptions" Value="CenterAndExpand"  />
+        <Setter Property="VerticalOptions" Value="CenterAndExpand"  />
+        <Setter Property="AbsoluteLayout.LayoutFlags" Value="PositionProportional"  />
+        <Setter Property="VerticalOptions" Value="CenterAndExpand"  />
+        <Setter Property="ButtonColor" Value="{DynamicResource secondaryBarColor}"  />
+        <Setter Property="Scale" Value="{StaticResource SizeFab}"/>
+    </Style>
+
+    <Style x:Key="profileLabelStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="17"  />
+        <Setter Property="Margin" Value="8"  />
+        <Setter Property="VerticalTextAlignment" Value="Center"/>
+        <Setter Property="HorizontalTextAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="loadStyle" TargetType="ActivityIndicator">
+        <Setter Property="WidthRequest" Value="25" />
+        <Setter Property="Color" Value="{DynamicResource mainBarColor}" />
+    </Style>
+
+</ResourceDictionary>

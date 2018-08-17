@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TrackingApp.Views.ChartPage"
+             xmlns:fab="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
+             xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}">
+    <AbsoluteLayout 
+            VerticalOptions="FillAndExpand" 
+            HorizontalOptions="FillAndExpand"
+            BindingContext="{Binding Dashboard}">
+    
+    <ScrollView
+        AbsoluteLayout.LayoutFlags="All"
+		AbsoluteLayout.LayoutBounds="0,0,1,1"
+        BackgroundColor="#333333"
+        Padding="8">
+        <StackLayout  BackgroundColor="{DynamicResource backgroundColor}" Padding="20,12,20,12">
+            <Label Text="{Binding TitleChart,Mode=TwoWay}" HorizontalOptions="Center" LineBreakMode="WordWrap" FontAttributes="Bold"
+                   Margin="0,2,0,8"/>
+                <Frame BackgroundColor="#333333"
+                           HorizontalOptions="FillAndExpand"
+                           Padding="3" HasShadow="True"/>
+
+                <StackLayout HorizontalOptions="CenterAndExpand">
+                    <Image Source="EmptyChart.png" HeightRequest="200" HorizontalOptions="Center" Margin="20" IsVisible="{Binding ShowEmptyChart,Mode=TwoWay}"/>
+                    <Label HorizontalOptions="CenterAndExpand" Text="Sin resultados" IsVisible="{Binding ShowResultEmpty,Mode=TwoWay}"/>
+                </StackLayout>
+            
+                <microcharts:ChartView x:Name="DataDonutChart" HeightRequest="220" 
+                                   BackgroundColor="White" IsVisible="{Binding ShowChart,Mode=TwoWay}" />
+                <ListView IsVisible="{Binding ShowList,Mode=TwoWay}" 
+                ItemsSource="{Binding PersonalState}"
+                HasUnevenRows="True" 
+                SeparatorVisibility="Default"
+                Margin="0,15,0,0">
+                <ListView.ItemTemplate >
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="15,2,15,2">
+                                <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="24"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="30"/>
+                                </Grid.ColumnDefinitions>
+                                <BoxView Color="{Binding Color}" Grid.Column="0" HeightRequest="16" Margin="4"/>
+                                <Label
+                                     Grid.Column="1"
+                                     FontSize="Medium"
+                                     VerticalOptions="Start"
+                                     HorizontalOptions="StartAndExpand"
+                                     Text="{Binding Attribute}"
+                                     LineBreakMode="WordWrap"/>
+                                <Label
+                                     Grid.Column="2"
+                                     FontSize="Medium"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="End"
+                                     Text="{Binding Value}"
+                                     LineBreakMode="WordWrap"/>
+                            </Grid>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </StackLayout>
+    </ScrollView>
+        <fab:FloatingActionButton
+		    		Style="{StaticResource fabStyle}"
+                    Margin="30"
+		    		Image="ic_return.png"
+                	x:Name="FloatingActionButtonReturn"
+                    Command="{Binding BackCommand}"
+		    		AbsoluteLayout.LayoutBounds="0, 1, AutoSize, AutoSize"/>
+    </AbsoluteLayout>
+</ContentPage>

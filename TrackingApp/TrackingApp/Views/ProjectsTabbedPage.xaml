@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:tabs="clr-namespace:TrackingApp.Views"
+            x:Class="TrackingApp.Views.ProjectsTabbedPage"
+            Title="Tracking"
+            BindingContext="{Binding Main, Source={StaticResource Locator}}"
+            Style="{StaticResource tabbedStyle}"
+            NavigationPage.BackButtonTitle="Proyectos">
+    <ContentPage.ToolbarItems >
+        <ToolbarItem 
+            Name="Profile" 
+            Order="Secondary"
+            Command="{Binding ProfileCommand}" 
+            Text="Información Personal" 
+            Priority="1"/>
+        <ToolbarItem 
+            Name="Logout" 
+            Order="Secondary"
+            Command="{Binding SettingsCommand}" 
+            Text="Ajustes" 
+            Priority="1"/>
+        <ToolbarItem 
+            Name="Logout" 
+            Order="Secondary"
+            Command="{Binding LogoutCommand}" 
+            Text="Salir" 
+            Priority="1"/>
+    </ContentPage.ToolbarItems>
+    <!--Pages can be added as references or inline-->
+    <TabbedPage.Children>
+        <tabs:ActivitiesPage/>
+        <tabs:DashboardPage/>
+    </TabbedPage.Children>
+</TabbedPage>

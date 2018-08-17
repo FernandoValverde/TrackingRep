@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:control="clr-namespace:TrackingApp.Controls"
+    xmlns:cardView="clr-namespace:CardView;assembly=CardView"
+    xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures"
+    x:Class="TrackingApp.Views.TasksPage"
+    BindingContext="{Binding Main, Source={StaticResource Locator}}"
+    Title="Tareas"
+    Icon="projects">
+    <ContentPage.Content>
+        <StackLayout 
+            BindingContext="{Binding Tasks}"
+            VerticalOptions="FillAndExpand" 
+            HorizontalOptions="FillAndExpand">
+            <control:BindablePicker
+                SelectedIndexChanged="Project_ValueChanged" 
+                Grid.Column="1"
+                DisplayMemberPath="ProjectName"
+                SelectedValuePath="ProjectId"
+                ItemsSource="{Binding ProjectsList}"                
+                SelectedValue ="{Binding Path=SelectedProject, Mode=TwoWay}"
+                Margin="5,5,5,1" 
+                Style="{StaticResource selectFormStyle}">
+            </control:BindablePicker>
+            <ListView
+                ItemsSource="{Binding TasksList}"
+                HasUnevenRows="True"
+                IsPullToRefreshEnabled="True"
+                RefreshCommand="{Binding RefreshCommand}"
+                IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                SeparatorVisibility="None">
+                <ListView.ItemTemplate >
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Margin="4">
+                                <cardView:CardView CardViewOutlineColorThickness="1" CardViewHasShadow="True">
+                                    <cardView:CardView.CardViewContent>
+                                        <StackLayout  BackgroundColor="White">
+                                            <mr:Grid
+                                                LongPressingCommand="{Binding ChangueStateCommand}"
+                                                TappingCommand="{Binding SelectTaskCommand}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="12"></ColumnDefinition>
+                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <BoxView Color="{Binding ColorState}" Grid.Column="0" Grid.RowSpan="1"/>
+                                                <StackLayout 
+                                                    VerticalOptions="Center"
+                                                    Grid.Column="1"
+                                                    Margin="5">
+                                                    <Label
+                                                        FontSize="Medium"
+                                                        VerticalOptions="Start"
+                                                        HorizontalOptions="StartAndExpand"
+                                                        Text="{Binding TaskName}"
+                                                        LineBreakMode="WordWrap"
+                                                        TextColor="{Binding ColorText}"/>
+
+                                                    <Grid HorizontalOptions="FillAndExpand">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="59"></ColumnDefinition>
+                                                            <ColumnDefinition Width="83"></ColumnDefinition>
+                                                            <ColumnDefinition Width="45"></ColumnDefinition>
+                                                            <ColumnDefinition Width="45"></ColumnDefinition>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <Label
+                                                                FontSize="Micro"
+                                                                VerticalOptions="End"
+                                                                Text="Fecha límite:"/>
+                                                        <Label
+                                                                Grid.Column="1"
+                                                                FontSize="Micro"
+                                                                VerticalOptions="End"
+                                                                Text="{Binding LimitDate,StringFormat='{0:dd/MM/yyyy}'}"/>
+                                                        <Label
+                                                                Grid.Column="2"
+                                                                FontSize="Micro"
+                                                                VerticalOptions="End"
+                                                                Text="Prioridad:"/>
+                                                        <Label
+                                                                Grid.Column="3"
+                                                                FontSize="Micro"
+                                                                VerticalOptions="End"
+                                                                Text="{Binding Priority}"/>
+                                                        <Label
+                                                                Grid.Column="4"
+                                                                FontSize="Micro"
+                                                                VerticalOptions="End"
+                                                                HorizontalOptions="End"
+                                                                Text="{Binding State}"
+                                                                LineBreakMode="WordWrap"/>
+                                                    </Grid>
+
+                                                </StackLayout>
+                                            </mr:Grid>
+                                        </StackLayout>
+                                    </cardView:CardView.CardViewContent>
+                                </cardView:CardView>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

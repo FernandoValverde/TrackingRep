@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TrackingApp.Views.LoginPage"
+             xmlns:control="clr-namespace:TrackingApp.Controls"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             BackgroundColor="White">
+    <ContentPage.Content>
+        <control:GradientColorStack
+            StartColor="{DynamicResource mainBarColor}"
+            EndColor="{DynamicResource backgroundColor}"> 
+            <ScrollView VerticalOptions="FillAndExpand" 
+                        HorizontalOptions="FillAndExpand"
+                        BindingContext="{Binding Login}">                 
+                <StackLayout VerticalOptions="StartAndExpand" 
+                     HorizontalOptions="CenterAndExpand" Padding="5">
+                    <Image Source="Logo_login.png" 
+                           WidthRequest="150" HorizontalOptions="Center" x:Name="LogueImage" Margin="15"/>
+                    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" 
+                           WidthRequest="320"  HeightRequest="200"
+                           Padding="8,0,8,0">
+                        <Label Text="Usuario" Style="{StaticResource labelStyle}"/>
+                        <control:CustomEntry  
+                         BackgroundColor="Transparent"
+                         Text="{Binding Email,Mode=TwoWay}"
+                         Keyboard="Email"
+                         Placeholder="Usuario"
+                         Style="{StaticResource entryThemeStyle}"/>
+                        <Label Text="Contraseña" Style="{StaticResource labelStyle}"/>
+                        <control:CustomEntry  
+                         BackgroundColor="Transparent"
+                         Text="{Binding Password,Mode=TwoWay}"
+                         IsPassword="True"
+                         Placeholder="Contraseña"
+                         Style="{StaticResource entryThemeStyle}"/>
+                    </StackLayout>
+                    <ActivityIndicator Style="{StaticResource loadStyle}"
+                        x:Name="LoadActivity"
+                        IsRunning="{Binding IsRunning, Mode=TwoWay}"/>
+                    <control:CustomButton 
+                        Command="{Binding LoginCommand}" 
+                        IsEnabled="{Binding IsEnabled,Mode=TwoWay}" 
+                        Text="Iniciar"
+                        x:Name="btnLogin"
+                        Style="{StaticResource buttonStyle}"/>
+                </StackLayout>
+            </ScrollView>
+        </control:GradientColorStack>
+    </ContentPage.Content>
+</ContentPage>

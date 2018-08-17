@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:tabs="clr-namespace:TrackingApp.Views"
+        x:Class="TrackingApp.Views.ProfilePage"
+        xmlns:control="clr-namespace:TrackingApp.Controls"
+        Title="Tracking"
+        BindingContext="{Binding Main, Source={StaticResource Locator}}">
+    <ContentPage.Content >
+        <ScrollView
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+            <StackLayout BindingContext="{Binding Profile}"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <control:GradientColorStack
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Start"
+                HeightRequest="350"
+                Margin="0,-95,0,-5"
+                StartColor="{DynamicResource mainBarColor}"
+                EndColor="{DynamicResource backgroundColor}">
+                    <AbsoluteLayout HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand">
+                        <control:ImageCircle HeightRequest="146" WidthRequest="146" Source="{Binding Photo, Mode=OneWay}"
+                            Aspect="AspectFill"
+                            Margin="0,123,0,0"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            BorderColor="{DynamicResource secondaryBarColor}"
+                            AbsoluteLayout.LayoutFlags="All"
+				            AbsoluteLayout.LayoutBounds="0,0,1,1"/>
+                        <ActivityIndicator Color="White"
+                            x:Name="LoadActivity"
+                            IsRunning="{Binding IsRefreshing, Mode=TwoWay}"
+                            HorizontalOptions="End"
+                            VerticalOptions="End"
+                            AbsoluteLayout.LayoutFlags="All"
+                            Margin="0,0,20,0"
+				            AbsoluteLayout.LayoutBounds="0,0,1,1"/>
+                    </AbsoluteLayout>
+                    <Label Text="{Binding FullName, Mode=OneWay}" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="EndAndExpand"
+                       Margin="0,0,0,22"
+                       FontSize="30"
+                       TextColor="{DynamicResource mainBarColor}"/>
+                </control:GradientColorStack>
+                <StackLayout>
+                    <Label Text="{Binding Category, Mode=OneWay}" Style="{StaticResource profileLabelStyle}"/>
+                    <Label Text="{Binding Identification, Mode=OneWay, StringFormat='Identificación: {0}'}" Style="{StaticResource profileLabelStyle}"/>
+                    <Label Text="{Binding OfficePhone, Mode=OneWay, StringFormat='Teléfono: {0}'}" Style="{StaticResource profileLabelStyle}"/>
+                    <Label Text="{Binding Office, Mode=OneWay, StringFormat='Oficina: {0}'}" Style="{StaticResource profileLabelStyle}"/>
+                    <Label Text="{Binding Email, Mode=OneWay, StringFormat='Correo: {0}'}" Style="{StaticResource profileLabelStyle}"/>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

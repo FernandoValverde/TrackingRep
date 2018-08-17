@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TrackingApp.Views.ActivitiesPage"
+             xmlns:cardView="clr-namespace:CardView;assembly=CardView"
+             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures"
+             xmlns:fab="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="Actividades"
+             Icon="activities">
+    <ContentPage.Content>
+        <AbsoluteLayout 
+            BindingContext="{Binding Activities}"
+            VerticalOptions="FillAndExpand" 
+            HorizontalOptions="FillAndExpand">
+            <ListView
+                AbsoluteLayout.LayoutFlags="All"
+				AbsoluteLayout.LayoutBounds="0,0,1,1"
+                ItemsSource="{Binding ActivitiesList}"
+                HasUnevenRows="True"
+                IsPullToRefreshEnabled="True"
+                RefreshCommand="{Binding RefreshCommand}"
+                IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                SeparatorVisibility="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Margin="4">
+                                <cardView:CardView CardViewOutlineColorThickness="1" CardViewHasShadow="True">
+                                    <cardView:CardView.CardViewContent>
+                                        <StackLayout  BackgroundColor="White">
+                                            <mr:Grid 
+                                                LongPressingCommand="{Binding RevertActivityCommand}"
+                                                TappingCommand="{Binding SelectActivityCommand}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <StackLayout 
+                                                    VerticalOptions="Center"
+                                                    Margin="5">
+                                                    
+                                                    <Label
+                                                        FontSize="Medium"
+                                                        VerticalOptions="Center"
+                                                        Text="{Binding Detail}"
+                                                        LineBreakMode="WordWrap"/>
+                                                    <Grid
+                                                        VerticalOptions="End"
+                                                        HorizontalOptions="End">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label
+                                                            Grid.Column="0"
+                                                            FontSize="Micro"
+                                                            FontAttributes="Bold"
+                                                            Text="Fecha reversión:"
+                                                            />
+                                                        <Label
+                                                            Grid.Column="1"
+                                                            FontSize="Micro"
+                                                            Text="{Binding ReversionDate,StringFormat='{0:dd/MM/yyyy}'}"/>
+                                                    </Grid>
+
+                                                </StackLayout>
+                                            </mr:Grid>
+                                        </StackLayout>
+                                    </cardView:CardView.CardViewContent>
+                                </cardView:CardView>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <fab:FloatingActionButton
+                    Style="{StaticResource fabStyle}"
+		    		Image="ic_add.png"
+                    x:Name="FloatingABAddActivity"
+                    Command="{Binding AddActivityCommand}"
+		    		AbsoluteLayout.LayoutBounds="1, 1, 90, AutoSize"/>
+        </AbsoluteLayout>
+
+    </ContentPage.Content>
+</ContentPage>

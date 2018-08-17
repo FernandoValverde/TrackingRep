@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TrackingApp.Views.DetailPage"
+             xmlns:fab="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
+             xmlns:control="clr-namespace:TrackingApp.Controls"
+             Title="Detalle"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}">
+    <ContentPage.Content>
+
+        <AbsoluteLayout 
+            BindingContext="{Binding Labors}"
+            VerticalOptions="FillAndExpand" 
+            HorizontalOptions="FillAndExpand">
+            
+            <ScrollView
+                AbsoluteLayout.LayoutFlags="All"
+				AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <StackLayout                 
+                        VerticalOptions="FillAndExpand" 
+                        HorizontalOptions="FillAndExpand" 
+                        Style="{StaticResource contentStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Padding="5" Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Text="Tarea:" Grid.Row="0" Grid.Column="0" FontAttributes="Bold"/>
+                        <Label Text="{Binding TaskName}" Grid.Row="0" Grid.Column="1" />
+
+                        <Label Text="Etapa:" Grid.Row="1" Grid.Column="0" FontAttributes="Bold"/>
+                        <Label Text="{Binding Stage}" Grid.Row="1" Grid.Column="1" />
+
+                        <Label Text="Proyecto:" Grid.Row="2" Grid.Column="0" FontAttributes="Bold"/>
+                        <Label Text="{Binding ProjectName}" Grid.Row="2" Grid.Column="1" />
+                    </Grid>
+                    <Grid Padding="5" Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="Tiempo estimado:" Grid.Row="0" Grid.Column="0" FontAttributes="Bold"/>
+                        <Label Text="{Binding EstimationTime,StringFormat='{0} horas'}" Grid.Row="0" Grid.Column="1" />
+
+                        <Label Text="Tiempo acumulado:" Grid.Row="1" Grid.Column="0" FontAttributes="Bold"/>
+                        <Label Text="{Binding WorkedTime,StringFormat='{0} horas'}" Grid.Row="1" Grid.Column="1" TextColor="{Binding StimateColorText,Mode=TwoWay}"/>
+
+                        <Label Text="Fecha creación:" Grid.Row="2" Grid.Column="0" FontAttributes="Bold"/>
+                        <Label Text="{Binding CreationDate,StringFormat='{0:dd/MM/yyyy}'}" Grid.Row="2" Grid.Column="1" />
+
+                        <Label Text="Fecha límite:" Grid.Row="3" Grid.Column="0" FontAttributes="Bold"/>
+                        <Label Text="{Binding LimitDate,StringFormat='{0:dd/MM/yyyy}'}" Grid.Row="3" Grid.Column="1" TextColor="{Binding ColorText,Mode=TwoWay}" />
+
+                    </Grid>
+                    <Label Margin="2" Text="Descripción:" Grid.Row="2" FontAttributes="Bold"/>
+                    <Label Margin="2" Text="{Binding Description}" Grid.Row="3" LineBreakMode="WordWrap"/>
+
+                    <Label Margin="2" Text="Comentario" Grid.Row="4" LineBreakMode="WordWrap" FontAttributes="Bold"/>
+                    <control:CustomEditor Margin="2" Text="{Binding Detail}" HeightRequest="100" Grid.Row="5" IsEnabled="{Binding CanEditTask, Mode=TwoWay}"/>
+                </Grid>
+                </StackLayout>
+            </ScrollView>
+            <fab:FloatingActionButton
+		    		Style="{StaticResource fabStyle}"
+		    		Image="ic_save.png"
+                	x:Name="FloatingActionButtonAdd"
+		    		IsVisible="{Binding CanEditTask, Mode=TwoWay}"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    Command="{Binding SaveDetailTaskCommand}"
+		    		AbsoluteLayout.LayoutBounds="1, 1, 90, AutoSize"/>
+            <ActivityIndicator  Style="{StaticResource loadStyle}"
+                                x:Name="LoadActivity"
+                                IsRunning="{Binding IsRefreshing, Mode=TwoWay}"
+                                AbsoluteLayout.LayoutFlags="All"
+				                AbsoluteLayout.LayoutBounds="0.5,0.5,0.12,0.12"/>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

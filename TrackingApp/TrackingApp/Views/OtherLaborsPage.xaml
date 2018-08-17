@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TrackingApp.Views.OtherLaborsPage"
+             xmlns:cardView="clr-namespace:CardView;assembly=CardView"
+             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures"
+             Title="Otras Labores"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}">
+    <ContentPage.Content>
+
+        <AbsoluteLayout 
+            BindingContext="{Binding Labors}"
+            VerticalOptions="FillAndExpand" 
+            HorizontalOptions="FillAndExpand">
+            <ListView
+                AbsoluteLayout.LayoutFlags="All"
+				AbsoluteLayout.LayoutBounds="0,0,1,1"
+                ItemsSource="{Binding OtherLaborsList}"
+                HasUnevenRows="True"
+                IsPullToRefreshEnabled="True"
+                RefreshCommand="{Binding RefreshCommand}"
+                IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Margin="4">
+                                <cardView:CardView CardViewOutlineColorThickness="1" CardViewHasShadow="True">
+                                    <cardView:CardView.CardViewContent>
+                                        <StackLayout  BackgroundColor="White">
+                                            <Grid >
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="12"></ColumnDefinition>
+                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <BoxView Color="{Binding ColorState}" Grid.Column="0" Grid.RowSpan="1"/>
+                                                <StackLayout 
+                                                    VerticalOptions="Center"
+                                                    Grid.Column="1"
+                                                    Margin="2">
+                                                    <Label
+                                                        FontSize="Medium"
+                                                        VerticalOptions="Center"
+                                                        Text="{Binding Description}"
+                                                        LineBreakMode="WordWrap"/>
+
+                                                    <Grid HorizontalOptions="FillAndExpand">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="59"></ColumnDefinition>
+                                                            <ColumnDefinition Width="76"></ColumnDefinition>
+                                                            <ColumnDefinition Width="45"></ColumnDefinition>
+                                                            <ColumnDefinition Width="65"></ColumnDefinition>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <Label
+                                                                FontSize="Micro"
+                                                                VerticalOptions="End"
+                                                                Text="Fecha inicio:"/>
+                                                        <Label
+                                                                Grid.Column="1"
+                                                                FontSize="Micro"
+                                                                VerticalOptions="End"
+                                                                Text="{Binding StartDate,StringFormat='{0:dd/MM/yyyy}'}"/>
+                                                        <Label
+                                                                Grid.Column="2"
+                                                                FontSize="Micro"
+                                                                VerticalOptions="End"
+                                                                Text="Fecha fin:"/>
+                                                        <Label
+                                                                Grid.Column="3"
+                                                                FontSize="Micro"
+                                                                VerticalOptions="End"
+                                                                Text="{Binding EndDate,StringFormat='{0:dd/MM/yyyy}'}"/>
+                                                        <Label
+                                                                Grid.Column="4"
+                                                                FontSize="Micro"
+                                                                VerticalOptions="End"
+                                                                HorizontalOptions="End"
+                                                                BindingContext="{Binding State}"
+                                                                Text="{Binding StateName}"
+                                                                LineBreakMode="WordWrap"/>
+
+                                                    </Grid>
+
+
+                                                </StackLayout>
+                                            </Grid>
+                                        </StackLayout>
+                                    </cardView:CardView.CardViewContent>
+                                </cardView:CardView>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </AbsoluteLayout>
+
+    </ContentPage.Content>
+</ContentPage>

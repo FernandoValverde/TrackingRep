@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:tabs="clr-namespace:TrackingApp.Views"
+             x:Class="TrackingApp.Views.SettingsPage"
+             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             Title="Tracking"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}">
+    <ContentPage.Content>
+        
+        <AbsoluteLayout 
+            BindingContext="{Binding Settings}"
+            VerticalOptions="FillAndExpand" 
+            HorizontalOptions="CenterAndExpand">
+
+            <flv:FlowListView 
+                AbsoluteLayout.LayoutFlags="All"
+				AbsoluteLayout.LayoutBounds="0,0,1,1"
+                RowHeight="95"
+                FlowColumnCount="3" SeparatorVisibility="None" HasUnevenRows="false"
+	            FlowItemTappedCommand="{Binding SelectThemeCommand}"
+	            FlowItemsSource="{Binding ThemesList}" Margin="5,10,5,5">
+                <flv:FlowListView.FlowColumnTemplate >
+                    <DataTemplate>
+                        <Grid HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="15" ColumnSpacing="1" RowSpacing="1">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding SelectThemeCommand}" />
+                            </Grid.GestureRecognizers>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+                            <BoxView 
+                                Color="{Binding MainBarColor}" 
+                                WidthRequest="40" HeightRequest="40"
+                                Grid.Column="0" Grid.Row="0"/>
+                            <BoxView 
+                                Color="{Binding SecondaryBarColor}" 
+                                WidthRequest="30" HeightRequest="30" Margin="0,3,3,0"
+                                Grid.Column="1" Grid.Row="0"/>
+                            <BoxView 
+                                Color="{Binding SecondaryBarColor}" 
+                                WidthRequest="30" HeightRequest="30" Margin="3,0,0,3" 
+                                Grid.Column="0" Grid.Row="1"/>
+                            <BoxView 
+                                Color="{Binding MainBarColor}" 
+                                WidthRequest="40" HeightRequest="40" 
+                                Grid.Column="1" Grid.Row="1"/>
+                        </Grid>
+                    </DataTemplate>
+                </flv:FlowListView.FlowColumnTemplate>
+            </flv:FlowListView>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

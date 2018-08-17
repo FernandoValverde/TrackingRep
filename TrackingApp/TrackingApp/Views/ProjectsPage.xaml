@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cardView="clr-namespace:CardView;assembly=CardView"
+    x:Class="TrackingApp.Views.ProjectsPage"
+    BindingContext="{Binding Main, Source={StaticResource Locator}}"
+    Title="Proyectos"
+    Icon="projects">
+    <ContentPage.Content>
+        <StackLayout 
+            BindingContext="{Binding Projects}"
+            VerticalOptions="FillAndExpand" 
+            HorizontalOptions="FillAndExpand">
+            <ListView
+                ItemsSource="{Binding ProjectsList}"
+                HasUnevenRows="True"
+                IsPullToRefreshEnabled="True"
+                RefreshCommand="{Binding RefreshCommand}"
+                IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                SeparatorVisibility="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="8,4,8,4" Margin="2">
+                                <cardView:CardView CardViewOutlineColorThickness="1" CardViewHasShadow="True">
+                                    <cardView:CardView.CardViewContent>
+                                        <StackLayout  BackgroundColor="White">
+                                            <Grid Padding="5">
+                                                <Grid.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding SelectProjectCommand}"/>
+                                                </Grid.GestureRecognizers>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <RelativeLayout WidthRequest="40">
+                                                    <Image 
+                                                        Source="ic_folder.png"
+                                                        VerticalOptions="StartAndExpand"
+                                                        WidthRequest="40" HeightRequest="40"
+                                                        x:Name="imageDeer" />
+                                                    <Label Text="{Binding TasksCount}" 
+                                                        FontSize="Small" TextColor="#dddeee"
+                                                        HorizontalTextAlignment="Center"
+                                                        VerticalTextAlignment="Center"
+                                                        WidthRequest="40" HeightRequest="40"
+                                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView,
+                                                            ElementName=imageDeer, Property=Width, Factor=0, Constant=0}" 
+                                                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
+                                                            ElementName=imageDeer, Property=Height, Factor=1, Constant=-39}" />
+                                                    <Label Text="Tareas" 
+                                                        FontSize="Micro"
+                                                        HorizontalTextAlignment="Center"
+                                                        VerticalTextAlignment="End"
+                                                        WidthRequest="40" HeightRequest="47"
+                                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView,
+                                                            ElementName=imageDeer, Property=Width, Factor=0, Constant=0}" 
+                                                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
+                                                            ElementName=imageDeer, Property=Height, Factor=1, Constant=-39}" />
+                                                </RelativeLayout>
+                                                <StackLayout 
+                                                    VerticalOptions="Center"
+                                                    Grid.Column="1">
+                                                    <Label
+                                                        FontSize="Medium"
+                                                        VerticalOptions="Center"
+                                                        Text="{Binding ProjectName}"
+                                                        LineBreakMode="WordWrap"/>
+                                                </StackLayout>
+                                            </Grid>
+                                        </StackLayout>
+                                    </cardView:CardView.CardViewContent>
+                                </cardView:CardView>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

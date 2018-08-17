@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:infra="clr-namespace:TrackingApp.Infrastructure"
+             x:Class="TrackingApp.App"
+             xmlns:local="clr-namespace:TrackingApp;assembly=TrackingApp">
+    <Application.Resources>
+
+        <!-- Application resource dictionary -->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:Config/>
+                <local:Styles/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <!-- Colors -->
+            <Color x:Key="mainBarColor">#001e33</Color>
+            <Color x:Key="secondaryBarColor">#002d4d</Color>
+            <Color x:Key="backgroundColor">#ffffff</Color>
+            <Color x:Key="barTextColor">#ffffff</Color>
+
+            <!-- Locator -->
+            <infra:InstanceLocator x:Key="Locator"></infra:InstanceLocator>
+                       
+
+        </ResourceDictionary>
+
+    </Application.Resources>
+</Application>

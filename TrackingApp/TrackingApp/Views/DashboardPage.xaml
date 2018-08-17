@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        x:Class="TrackingApp.Views.DashboardPage"
+        xmlns:control="clr-namespace:TrackingApp.Controls"
+        BindingContext="{Binding Main, Source={StaticResource Locator}}"
+        Title="Estadísticas"
+        Icon="dashboard">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout BindingContext="{Binding Dashboard}"
+                    VerticalOptions="FillAndExpand" 
+                    HorizontalOptions="FillAndExpand" >
+                <Label Text="Tipo de consulta" Style="{StaticResource formLabelStyle}"/>
+                <control:BindablePicker
+                    x:Name="QueryTypeControl"
+                    DisplayMemberPath="Description"
+                    SelectedValuePath="QueryTypeId"
+                    ItemsSource="{Binding QueryTypeList, Mode=TwoWay}"
+                    SelectedValue ="{Binding Path=QueryType, Mode=TwoWay}"
+                    Style="{StaticResource selectFormStyle}"
+                    Margin="4,0,4,0"/>
+                <Label Text="Periodo de consulta" Style="{StaticResource formLabelStyle}"
+                    IsVisible="{Binding Path=ShowDate, Mode=TwoWay}"/>
+                <StackLayout IsVisible="{Binding Path=ShowDate, Mode=TwoWay}" Orientation="Horizontal"
+                    HorizontalOptions="CenterAndExpand">
+                    <control:CustomDatePicker Date="{Binding StartDate,Mode=TwoWay}" Format="dd/MM/yyyy"
+                        HorizontalOptions="Start"
+                        Margin="4,0,2,0"
+                        Style="{StaticResource pickerFormStyle}"/>
+                    <control:CustomDatePicker Date="{Binding EndDate,Mode=TwoWay}" Format="dd/MM/yyyy" 
+                        HorizontalOptions="End"
+                        Margin="2,0,4,0"
+                        Style="{StaticResource pickerFormStyle}"/>
+                </StackLayout>
+
+                <Label Text="Proyecto" Style="{StaticResource formLabelStyle}"
+                    IsVisible="{Binding Path=ShowProjects, Mode=TwoWay}"/>
+                <control:BindablePicker
+                    SelectedIndexChanged="Project_ValueChanged" 
+                    IsVisible="{Binding Path=ShowProjects, Mode=TwoWay}"
+                    DisplayMemberPath="ProjectName"
+                    SelectedValuePath="ProjectId"
+                    ItemsSource="{Binding ProjectsList, Mode=TwoWay}"
+                    SelectedValue ="{Binding Path=PojectId, Mode=TwoWay}"
+                    Style="{StaticResource selectFormStyle}"
+                    Margin="4,0,4,0"/>
+
+                <Label Text="Tarea" Style="{StaticResource formLabelStyle}"
+                    IsVisible="{Binding Path=ShowTasks, Mode=TwoWay}"/>
+                <control:BindablePicker 
+                    x:Name="LaborsListControl"
+                    IsVisible="{Binding Path=ShowTasks, Mode=TwoWay}"
+                    DisplayMemberPath="TaskName"
+                    SelectedValuePath="TaskId"
+                    ItemsSource="{Binding TasksList, Mode=TwoWay}"
+                    SelectedValue ="{Binding Path=TaskId, Mode=TwoWay}"
+                    Style="{StaticResource selectFormStyle}"
+                    Margin="4,0,4,0"/>
+
+                <ActivityIndicator Style="{StaticResource loadStyle}"
+                                   x:Name="LoadActivity"
+                                   IsRunning="{Binding IsRefreshing, Mode=TwoWay}"/>
+                <control:CustomButton 
+                    Command="{Binding ViewChartCommand}" 
+                    IsEnabled="{Binding IsEnabled,Mode=TwoWay}" 
+                    Text="Consultar" 
+                    Style="{StaticResource buttonStyle}"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

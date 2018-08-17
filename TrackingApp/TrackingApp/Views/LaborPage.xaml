@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TrackingApp.Views.LaborPage"
+             xmlns:fab="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
+             xmlns:control="clr-namespace:TrackingApp.Controls"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}">
+    <ContentPage.Content>
+        <AbsoluteLayout 
+            BindingContext="{Binding LaborEdit}"
+            VerticalOptions="FillAndExpand" 
+            HorizontalOptions="FillAndExpand">
+
+            <ScrollView VerticalOptions="FillAndExpand" 
+                            HorizontalOptions="FillAndExpand"
+                            AbsoluteLayout.LayoutFlags="All"
+				            AbsoluteLayout.LayoutBounds="0,0,1,1" BackgroundColor="#333333"
+                        Padding="8">
+
+                <StackLayout
+                VerticalOptions="FillAndExpand" 
+                HorizontalOptions="FillAndExpand" BackgroundColor="{DynamicResource backgroundColor}" Padding="20,12,20,20">
+                    <Label Text="- - -   Información de la labor   - - -"
+                           HorizontalOptions="CenterAndExpand" Margin="0,2,0,8"/>
+                    <Frame BackgroundColor="#333333"
+                           HorizontalOptions="FillAndExpand"
+                           Padding="3" HasShadow="True"/>
+
+                        <Label Text="Descripción" Style="{StaticResource formLabelStyle}"/>
+                        
+                        <control:CustomEditor Margin="2" Text="{Binding Description,Mode=TwoWay}" HeightRequest="150" IsEnabled="{Binding CanEditLabor, Mode=TwoWay}"/>
+                    
+                        <Label Text="Fecha Inicio" Style="{StaticResource formLabelStyle}"/>
+                        <control:CustomDatePicker 
+                            Date="{Binding StartDate}" Format="dd/MM/yyyy" 
+                            IsEnabled="{Binding CanEditLabor, Mode=TwoWay}"
+                            Style="{StaticResource pickerFormStyle}"/>
+
+                        <Label Text="Tiempo estimado" Style="{StaticResource formLabelStyle}"/>
+                        <StackLayout HorizontalOptions="CenterAndExpand">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <control:CustomEntry
+                                    x:Name="EstimationTime"
+                                    TextChanged="EstimationTime_TextChanged"
+                                    Text="{Binding EstimationTime, Mode=TwoWay}"
+                                    Keyboard="Numeric"
+                                    Grid.Column="0"
+                                    IsEnabled="{Binding CanEditLabor, Mode=TwoWay}"
+                                    Style="{StaticResource entryFormStyle}"/>
+                                <Label Text="h. " Grid.Column="1" VerticalTextAlignment="Center"/>
+                                <control:BindablePicker
+                                    DisplayMemberPath="Value"
+                                    SelectedValuePath="Key"
+                                    ItemsSource="{Binding MinutesList}"
+                                    BackgroundColor="White"
+                                    CornerRadius="3"
+                                    IsCurvedCornersEnabled="True"
+                                    SelectedValue ="{Binding Path=EstimationMin, Mode=TwoWay}"
+                                    Grid.Column="2"
+                                    IsEnabled="{Binding CanEditLabor, Mode=TwoWay}">
+                                </control:BindablePicker>
+                                <Label Text="min" Grid.Column="3" VerticalTextAlignment="Center"/>
+                            </Grid>
+                        </StackLayout>
+
+                        <Label Text="Tiempo acumulado" Grid.Row="6" Style="{StaticResource formLabelStyle}"/>
+                        <StackLayout Grid.Row="7" HorizontalOptions="Center">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <control:CustomEntry
+                                    x:Name="WorkedTime"
+                                    TextChanged="WorkedTime_TextChanged"
+                                    Text="{Binding WorkedTime, Mode=TwoWay}"
+                                    Keyboard="Numeric"
+                                    Grid.Column="0"
+                                    IsEnabled="{Binding CanEditLabor, Mode=TwoWay}"
+                                    Style="{StaticResource entryFormStyle}"/>
+                                <Label Text="h. " Grid.Column="1" VerticalTextAlignment="Center"/>
+                                <control:BindablePicker
+                                    DisplayMemberPath="Value"
+                                    SelectedValuePath="Key"
+                                    ItemsSource="{Binding MinutesList}"
+                                    BackgroundColor="White"
+                                    CornerRadius="3"
+                                    IsCurvedCornersEnabled="True"
+                                    SelectedValue ="{Binding Path=WorkedMin, Mode=TwoWay}"
+                                    Grid.Column="2"
+                                    IsEnabled="{Binding CanEditLabor, Mode=TwoWay}">
+                                </control:BindablePicker>
+                                <Label Text="min" Grid.Column="3" VerticalTextAlignment="Center"/>
+                            </Grid>
+                        </StackLayout>
+                   
+                </StackLayout>
+            </ScrollView>
+            <fab:FloatingActionButton
+		    		Style="{StaticResource fabStyle}"
+		    		Image="ic_save.png"
+                	x:Name="FloatingActionButtonAdd"
+		    		IsVisible="{Binding CanEditLabor, Mode=TwoWay}"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    Command="{Binding SaveLaborCommand}"
+		    		AbsoluteLayout.LayoutBounds="1, 1, AutoSize, AutoSize"/>
+            <fab:FloatingActionButton
+		    		Style="{StaticResource fabStyle}"
+		    		Image="ic_return.png"
+                	x:Name="FloatingActionButtonReturn"
+		    		IsVisible="True"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    Command="{Binding BackCommand}"
+		    		AbsoluteLayout.LayoutBounds="0, 1, AutoSize, AutoSize"/>
+            <ActivityIndicator  Style="{StaticResource loadStyle}"
+                                x:Name="LoadActivity"
+                                IsRunning="{Binding IsRefreshing, Mode=TwoWay}"
+                                AbsoluteLayout.LayoutFlags="All"
+				                AbsoluteLayout.LayoutBounds="0.5,0.5,0.12,0.12"/>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

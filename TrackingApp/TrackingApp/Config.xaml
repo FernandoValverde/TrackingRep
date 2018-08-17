@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        x:Class="TrackingApp.Config">
+    <!-- Parameters -->
+    <x:String x:Key="URLBase">http://192.168.0.94/Cap/ServiciosPruebas/</x:String>
+    <!--<x:String x:Key="URLBase">http://13.65.27.193/SIRIUS_Pro_Servicios/</x:String>-->
+    <x:String x:Key="URLBaseCostos">http://13.65.27.193/GestionFinanciera_Servicios/</x:String>
+    <!-- Codigo de aplicación Tracking para Sirius -->
+    <x:Int32 x:Key="SystemCode">2</x:Int32>
+</ResourceDictionary>

@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TrackingApp.Views.ActivityPage"
+             xmlns:fab="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
+             xmlns:control="clr-namespace:TrackingApp.Controls"
+             xmlns:controlSeg="clr-namespace:SegmentedControl.FormsPlugin.Abstractions;assembly=SegmentedControl.FormsPlugin.Abstractions"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}">
+    <ContentPage.Content>
+
+        <AbsoluteLayout 
+            BindingContext="{Binding ActivityEdit}"
+            VerticalOptions="FillAndExpand" 
+            HorizontalOptions="FillAndExpand">
+            <ScrollView VerticalOptions="FillAndExpand" 
+                            HorizontalOptions="FillAndExpand"
+                            AbsoluteLayout.LayoutFlags="All"
+				            AbsoluteLayout.LayoutBounds="0,0,1,1"
+                            BackgroundColor="#333333"
+                            Padding="8">
+                <StackLayout                 
+                        VerticalOptions="FillAndExpand" 
+                        HorizontalOptions="FillAndExpand" 
+                        Style="{StaticResource contentStyle}"
+                        BackgroundColor="{DynamicResource backgroundColor}" Padding="20,12,20,20">
+                    <Label Text="- - -   Información de la actividad   - - -"
+                           HorizontalOptions="CenterAndExpand" Margin="0,2,0,8"/>
+                    <Frame BackgroundColor="#333333"
+                           HorizontalOptions="FillAndExpand"
+                           Padding="3" HasShadow="True"/>
+                    
+                        <Label IsVisible="{Binding Path=ShowProjects, Mode=TwoWay}" 
+                                   Text="Proyecto" Style="{StaticResource formLabelStyle}"/>
+                        <control:BindablePicker
+                                 IsVisible="{Binding Path=ShowProjects, Mode=TwoWay}"
+                                 x:Name="ProjectsActivityControl"
+                                 DisplayMemberPath="ProjectName"
+                                 SelectedValuePath="ProjectId"
+                                 ItemsSource="{Binding ProjectsActivityList}"
+                                 SelectedValue ="{Binding Path=ProjectId, Mode=TwoWay}"
+                                 Style="{StaticResource selectFormStyle}"/>
+
+
+                        <Label Text="Clasificación" 
+                               Style="{StaticResource formLabelStyle}"/>
+                        <controlSeg:SegmentedControl x:Name="SegmentedControlName" 
+                                            SelectedSegment="{Binding Clasification,Mode=TwoWay}" 
+                                            ValueChanged="Clasification_ValueChanged"
+                                            TintColor="Black"
+                                            SelectedTextColor="White"
+                                            DisabledColor="Gray" HeightRequest="40">
+                            <controlSeg:SegmentedControl.Children>
+                                <controlSeg:SegmentedControlOption Text="Personal"/>
+                            <controlSeg:SegmentedControlOption Text="Administrativa"/>
+                            </controlSeg:SegmentedControl.Children>
+                        </controlSeg:SegmentedControl>
+
+
+                        <Label Text="Tipo Actividad" Style="{StaticResource formLabelStyle}"/>
+                        <control:BindablePicker
+                                 x:Name="ActivityTypesControl"
+                                 DisplayMemberPath="ActivityTypeName"
+                                 SelectedValuePath="ActivityTypeId"
+                                 ItemsSource="{Binding ActivityTypesList,Mode=TwoWay}"
+                                 SelectedValue ="{Binding Path=ActivityTypeId, Mode=TwoWay}"
+                                 Style="{StaticResource selectFormStyle}"/>
+
+
+                        <Label Text="Detalle" Style="{StaticResource formLabelStyle}"/>
+                        <control:CustomEditor Text="{Binding Detail}" HeightRequest="150"
+                                    VerticalOptions="Start"/>
+
+                        <Label Text="Fecha Inicio" Style="{StaticResource formLabelStyle}"/>
+
+                        <control:CustomDatePicker 
+                                        Date="{Binding StartDate}" Format="dd/MM/yyyy" 
+                                        Style="{StaticResource pickerFormStyle}"/>
+
+                        <Label Text="Fecha Fin" Style="{StaticResource formLabelStyle}"/>
+
+                        <control:CustomDatePicker                                         
+                                        Date="{Binding EndDate}" Format="dd/MM/yyyy" 
+                                        Style="{StaticResource pickerFormStyle}"/>
+
+                        <Label Text="Esfuerzo" Style="{StaticResource formLabelStyle}"/>
+
+                        <StackLayout HorizontalOptions="CenterAndExpand">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <control:CustomEntry
+                                                x:Name="EffortTime"
+                                                TextChanged="EffortTime_TextChanged"
+                                                Text="{Binding EffortTime, Mode=TwoWay}"
+                                                Keyboard="Numeric"
+                                                Grid.Column="0"
+                                                Style="{StaticResource entryFormStyle}"/>
+                                <Label Text="h. " Grid.Column="1" VerticalTextAlignment="Center"/>
+                                <control:BindablePicker
+                                                DisplayMemberPath="Value"
+                                                SelectedValuePath="Key"
+                                                ItemsSource="{Binding MinutesList}"
+                                                BackgroundColor="White"
+                                                SelectedValue ="{Binding Path=EffortMin, Mode=TwoWay}"
+                                                Grid.Column="2"
+                                                CornerRadius="3"
+                                                IsCurvedCornersEnabled="True"
+                                                VerticalOptions="Center">
+                                </control:BindablePicker>
+                                <Label Text="min" Grid.Column="3" VerticalTextAlignment="Center"/>
+                            </Grid>
+                        </StackLayout>
+                    <control:CustomButton 
+                            Command="{Binding RevertActivityCommand}" 
+                            IsEnabled="{Binding IsEnabled,Mode=TwoWay}" 
+                            IsVisible="{Binding IsUpdating,Mode=TwoWay}"
+                            Text="Reversar"
+                            Style="{StaticResource buttonStyle}"
+                            WidthRequest="165"/>
+                </StackLayout>
+            </ScrollView>
+            <fab:FloatingActionButton
+		    		Style="{StaticResource fabStyle}"
+		    		Image="ic_save.png"
+                    x:Name="FloatingActionButtonAdd"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    Command="{Binding SaveActivityCommand}"
+		    		AbsoluteLayout.LayoutBounds="1, 1, AutoSize, AutoSize">
+            </fab:FloatingActionButton>
+            <fab:FloatingActionButton
+		    		Style="{StaticResource fabStyle}"
+		    		Image="ic_return.png"
+                	x:Name="FloatingActionButtonReturn"
+		    		IsVisible="True"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    Command="{Binding BackCommand}"
+		    		AbsoluteLayout.LayoutBounds="0, 1, AutoSize, AutoSize">
+            </fab:FloatingActionButton>
+            <ActivityIndicator  Style="{StaticResource loadStyle}"
+                                x:Name="LoadActivity"
+                                IsRunning="{Binding IsRefreshing, Mode=TwoWay}"
+                                AbsoluteLayout.LayoutFlags="All"
+				                AbsoluteLayout.LayoutBounds="0.5,0.5,0.12,0.12"/>
+        </AbsoluteLayout>
+
+    </ContentPage.Content>
+</ContentPage>
